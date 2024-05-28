@@ -2,28 +2,33 @@ use std::io;
 
 fn main() {
     println!("Welcome to VJ Calculator");
-    let mut num1 = String::new();
-    let mut num2 = String::new();
-    let mut op = String::new();
+    let num1 = read_input("Enter the First Number: ");
+    let num2 = read_input("Enter the Second Number: ");
+    let op = read_input("Enter the Operator (+,-,*,*)");
 
-    println!("Enter the First Number:");
-    io::stdin()
-        .read_line(&mut num1)
-        .expect("Error reading the first number!");
+    let num1: i32 = match num1.trim().parse() {
+        Ok(n) => n,
+        Err(err) => {
+            println!("Error Parsing the First Number - {err}");
+            return;
+        }
+    };
 
-    println!("Enter the second number: ");
-    io::stdin()
-        .read_line(&mut num2)
-        .expect("Error reading the second number!");
+    let num2: i32 = match num2.trim().parse() {
+        Ok(n) => n,
+        Err(err) => {
+            println!("Error Parsing the Second Number - {err}");
+            return;
+        }
+    };
 
-    println!("Enter the operator: (+ - * /) ");
-    io::stdin()
-        .read_line(&mut op)
-        .expect("Error reading the operator!");
-
-    let num1: i32 = num1.trim().parse().expect("Error Parsing the number");
-    let num2: i32 = num2.trim().parse().expect("Error Parsing the number");
-    let op: char = op.trim().parse().expect("Error Parsing the operator");
+    let op: char = match op.trim().parse() {
+        Ok(n) => n,
+        Err(err) => {
+            println!("Error Parsing the First Number - {err}");
+            return;
+        }
+    };
 
     match op {
         '+' => println!("The sum is {}", num1 + num2),
@@ -32,4 +37,13 @@ fn main() {
         '/' => println!("The divided result is {}", num1 / num2),
         _ => println!("Please select a vaild operator i.e. +,-,*,/"),
     }
+}
+
+fn read_input(prompt: &str) -> String {
+    println!("{}", prompt);
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Error taking the input");
+    input
 }
