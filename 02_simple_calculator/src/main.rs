@@ -25,7 +25,7 @@ fn main() {
     let op: char = match op.trim().parse() {
         Ok(n) => n,
         Err(err) => {
-            println!("Error Parsing the First Number - {err}");
+            println!("Error Parsing the operator - {err}");
             return;
         }
     };
